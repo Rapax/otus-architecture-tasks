@@ -14,7 +14,20 @@ spec:
         spec:
             containers:
             - name: nginx-health-app              
-              image: sergusha/otus-architecture:task-01
+              image: sergusha/otus-architecture:task-01-updated
               ports:
                   - name: web
                     containerPort: 8000
+              readinessProbe:
+                  httpGet:
+                      port: 8000
+                      path: /health
+                  initialDelaySeconds: 10
+                  periodSeconds: 5
+              livenessProbe:
+                  httpGet:
+                      port: 8000
+                      path: /
+                  initialDelaySeconds: 7
+                  periodSeconds: 5
+                  timeoutSeconds: 2
